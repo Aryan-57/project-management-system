@@ -1,0 +1,32 @@
+{
+  "fileKey": "tdjic6MKnon0YSJZALXdcx",
+  "scope": "annotated screen wireframes and semantic foundations",
+  "collection": "VariableCollectionId:4:2",
+  "variables": {
+    "background": "VariableID:4:3",
+    "surface": "VariableID:4:4",
+    "ink": "VariableID:4:5",
+    "muted": "VariableID:4:6",
+    "accent": "VariableID:4:7",
+    "border": "VariableID:4:8",
+    "sectionGap": "VariableID:4:9"
+  },
+  "frames": {
+    "dashboard": "4:10",
+    "projects": "4:11",
+    "projectDetail": "4:12",
+    "forms": "4:13",
+    "androidAuth": "4:14",
+    "androidDashboard": "4:15",
+    "androidProjectsTasks": "4:16",
+    "androidEditor": "4:17",
+    "states": "4:18"
+  },
+  "completed": [
+    "editable structure readback",
+    "Inter font assertion",
+    "dashboard screenshot",
+    "Android auth screenshot"
+  ],
+  "pending": ["high-fidelity design review", "remaining frame visual review"]
+}
