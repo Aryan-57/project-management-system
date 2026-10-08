@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+datasource db {
+  provider = "postgresql"
+}
+enum ProjectStatus {
+  NOT_STARTED @map("Not Started")
+  IN_PROGRESS @map("In Progress")
+  COMPLETED @map("Completed")
+}
+enum TaskStatus {
+  PENDING @map("Pending")
+  IN_PROGRESS @map("In Progress")
+  COMPLETED @map("Completed")
+}
+enum Priority {
+  LOW @map("Low")
+  MEDIUM @map("Medium")
+  HIGH @map("High")
+}
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  fullName String @db.VarChar(100)
+  email String @unique @db.VarChar(254)
+  passwordHash String
+  createdAt DateTime @default(now())
+  projects Project[]
+  sessions AuthSession[]
+}
+model AuthSession {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  csrfHash String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
+}
+model Project {
+  id String @id @default(uuid()) @db.Uuid
+  ownerId String @db.Uuid
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name String @db.VarChar(120)
+  description String
+  status ProjectStatus @default(NOT_STARTED)
+  startDate DateTime @db.Date
+  endDate DateTime @db.Date
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks Task[]
+  @@index([ownerId, status, createdAt])
+}
+model Task {
+  id String @id @default(uuid()) @db.Uuid
+  projectId String @db.Uuid
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name String @db.VarChar(120)
+  description String
+  priority Priority @default(MEDIUM)
+  status TaskStatus @default(PENDING)
+  dueDate DateTime @db.Date
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([projectId, status, priority, createdAt])
+}
