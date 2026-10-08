@@ -1,0 +1,25 @@
+{
+  "name": "still-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": ">=22.13.0 <23"
+  },
+  "scripts": {
+    "dev:web": "pnpm --filter @still/web dev",
+    "dev:api": "pnpm --filter @still/api dev",
+    "dev:mobile": "pnpm --filter @still/mobile start",
+    "build": "pnpm --filter @still/contracts build && pnpm --filter @still/design-tokens build && pnpm --filter @still/api build && pnpm --filter @still/web build",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write apps packages docs package.json pnpm-workspace.yaml tsconfig.base.json compose.yaml .github",
+    "db:generate": "pnpm --filter @still/api db:generate",
+    "db:migrate": "pnpm --filter @still/api db:migrate",
+    "db:seed": "pnpm --filter @still/api db:seed"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "@types/node": "^22.0.0",
+    "prettier": "^3.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules
+**/dist
+apps/api/src/generated
+pnpm-lock.yaml
+*.pdf
+tmp
+.git
+.expo
+apps/mobile/.expo
