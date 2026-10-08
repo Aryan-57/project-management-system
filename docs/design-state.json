@@ -1,6 +1,6 @@
 {
   "fileKey": "tdjic6MKnon0YSJZALXdcx",
-  "scope": "annotated screen wireframes and semantic foundations",
+  "scope": "annotated state wireframes, visual screen compositions and reusable product patterns",
   "collection": "VariableCollectionId:4:2",
   "variables": {
     "background": "VariableID:4:3",
@@ -29,5 +29,30 @@
     "Android auth screenshot",
     "remaining seven wireframe screenshots"
   ],
-  "pending": ["high-fidelity design review"]
+  "visualFrames": {
+    "webOverview": "12:69",
+    "webProjects": "12:70",
+    "webProjectDetail": "12:71",
+    "webProjectEditor": "12:72",
+    "webTaskEditor": "12:73",
+    "androidAuth": "12:74",
+    "androidOverview": "12:75",
+    "androidProjects": "12:76",
+    "androidTasks": "12:77",
+    "androidEditor": "12:78",
+    "components": "12:79"
+  },
+  "productComponents": {
+    "webProjectCard": "13:76",
+    "webTaskCard": "13:82",
+    "webStatCard": "13:87",
+    "androidProjectCard": "13:90",
+    "androidTaskCard": "13:96",
+    "androidStatCard": "13:101",
+    "androidField": "13:104",
+    "androidButton": "13:108"
+  },
+  "visualEvidence": "Ten editable visual compositions, eight product components, six text styles; zero font-family mismatches (Inter web, Roboto Android).",
+  "pending": ["visual screen screenshots and refinement"],
+  "limitation": "Figma MCP: You've reached the Figma MCP tool call limit on the Starter plan. Screenshot calls rejected after composition; visual screens are not visually accepted."
 }

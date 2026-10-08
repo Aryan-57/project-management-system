@@ -12,4 +12,5 @@ apps/api/src/generated/
 *.apk
 *.aab
 tmp/
+.local-tools/
 .DS_Store

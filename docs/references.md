@@ -14,5 +14,10 @@ Checked during implementation on 8 October 2026. The lockfile and Expo-installed
 - [Expo SDK 56 monorepos](https://github.com/expo/expo/blob/sdk-56/docs/pages/guides/monorepos.mdx)
 - [Expo SecureStore](https://docs.expo.dev/versions/v56.0.0/sdk/securestore/)
 - [Expo Android APK configuration](https://docs.expo.dev/build-reference/apk/)
+- [Expo continuous native generation](https://docs.expo.dev/workflow/continuous-native-generation/)
+- [Expo local release builds](https://docs.expo.dev/guides/local-app-production/)
+- [Official Android command tools and checksums](https://developer.android.com/studio)
+- [Android CLI and current Windows limitations](https://developer.android.com/tools/agents/android-cli)
+- [Temurin portable JDK installation](https://adoptium.net/installation)
 
 Selected stable supported lines rather than accepting Prisma's `latest` tag pointing to a release candidate. Expo package compatibility is checked with the installed `expo install --check`; Prisma migration syntax is taken from installed CLI help. These are build/configuration references, not a test report.

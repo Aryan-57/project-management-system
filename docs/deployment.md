@@ -28,6 +28,21 @@ eas build --platform android --profile preview
 
 Account linking/signing/builds can create remote artifacts; they have not been executed in this phase. EAS can manage Android signing after account authorization. For a Windows local build, install Android Studio, a compatible JDK (17 baseline), SDK/platform tools, configure ANDROID_HOME/JAVA_HOME, then `pnpm --filter @still/mobile android` to prebuild and compile a development app. A signed release requires keystore configuration and a release Gradle build in the generated Android project. `eas build --local` is not the recommended Windows build path. Keep signing files and credentials outside Git.
 
+### Windows local preview APK
+
+`scripts/build-android-local.ps1` generates the native project using the exact official `expo-template-bare-minimum@56.0.37` template, then runs Gradle `:app:assembleRelease` without tests. It embeds the JS bundle but keeps APP_ENV=development and the template debug signing key. The resulting `artifacts/still-local-preview.apk` is a **local preview**, not a production-signed submission. It includes arm64-v8a and x86_64, targets Android 36, and needs Android 7/API 24 or later.
+
+Install JDK 17, Android platform 36, build tools 36.0.0 (Gradle may also install 35.0.0), NDK 27.1.12297006 and CMake 3.22.1. Set JAVA_HOME/ANDROID_HOME, or use the ignored `.local-tools/java` and `.local-tools/android-sdk` workspace locations. Official tool downloads were checksum-verified in this workspace. The script uses an unused `W:` drive alias for paths containing spaces or ampersands; choose `-DriveLetter X` if needed. Gradle cache is isolated under `.local-tools/gradle`.
+
+```powershell
+./scripts/build-android-local.ps1
+# For a USB phone: set up adb reverse and bake the loopback URL into the preview.
+./scripts/build-android-local.ps1 -ApiUrl http://127.0.0.1:3001/api
+# Or supply the reachable LAN API URL for a physical phone.
+```
+
+The APK never changes its API address at runtime; rebuild when switching addresses. These preview addresses are intentionally unsuitable for production. Production/staging configuration still requires a deployed HTTPS shared API and proper signing. Building an APK does not establish device acceptance.
+
 Local emulator URL: `http://10.0.2.2:3001/api`. Physical Android URL: your computer's reachable LAN address on port 3001, or `adb reverse tcp:3001 tcp:3001` with a USB device and `http://127.0.0.1:3001/api` in a development build. These are development configurations only. Open Windows firewall narrowly for a physical device if needed. API listens on 0.0.0.0; PostgreSQL Docker port binds only to loopback.
 
 Later release acceptance must install the actual signed APK and demonstrate same-account web↔Android synchronization, expiry/revocation, offline recovery and screen-reader navigation. Native device automation is unavailable in this session; Expo MCP tools are also unavailable. This limitation does not change the Android delivery requirement.

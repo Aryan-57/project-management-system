@@ -19,7 +19,7 @@ The lockfile is part of source control. Prisma generates `apps/api/src/generated
 
 ## Local configuration
 
-Copy `.env.example` to root `.env`, `apps/api/.env.example` to `apps/api/.env`, `apps/web/.env.example` to `apps/web/.env`, and `apps/mobile/.env.example` to `apps/mobile/.env`. Examples contain placeholders; replace them before starting. Never commit actual `.env` files. Generate a JWT signing secret with `node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"` and place it directly in the API `.env`; do not paste secrets into Git or documentation.
+Run `pnpm setup:local` to create ignored local environment files with random database, JWT and synthetic demo credentials. Existing files are preserved; secrets are never printed. The mobile default targets the Android emulator. Alternatively, copy each `.env.example` to `.env` beside it and replace every placeholder before starting. Never commit actual environment files.
 
 | Variable            | Scope / purpose                                                                     |
 | ------------------- | ----------------------------------------------------------------------------------- |

@@ -5,6 +5,11 @@ node_modules
 **/.env.*
 .git
 tmp
+.local-tools
+artifacts
+**/.expo
+**/*.apk
+**/*.aab
 apps/api/src/generated
 apps/mobile/android
 apps/mobile/ios
