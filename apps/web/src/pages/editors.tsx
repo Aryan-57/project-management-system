@@ -210,6 +210,12 @@ export function TaskEditorPage() {
       dueDate: today(),
     },
   });
+  const selectedId = form.watch('projectId');
+  const selectedProject = useQuery({
+    queryKey: ['project', selectedId],
+    queryFn: ({ signal }) => api<Project>('/projects/' + selectedId, { signal }),
+    enabled: !!selectedId,
+  });
   useEffect(() => {
     if (query.data && !form.formState.isDirty) {
       const { name, description, projectId, priority, status, dueDate } = query.data;
@@ -220,11 +226,16 @@ export function TaskEditorPage() {
   if (id && query.isError)
     return <ErrorState error={query.error} retry={() => void query.refetch()} />;
   const items = projects.data?.pages.flatMap((p) => p.items) ?? [];
-  const selected = query.data;
+  const selected = selectedId
+    ? {
+        id: selectedId,
+        name:
+          selectedProject.data?.name ??
+          (query.data?.projectId === selectedId ? query.data.projectName : 'Selected project'),
+      }
+    : undefined;
   const options =
-    selected && !items.some((p) => p.id === selected.projectId)
-      ? [{ id: selected.projectId, name: selected.projectName }, ...items]
-      : items;
+    selected && !items.some((p) => p.id === selected.id) ? [selected, ...items] : items;
   const back = query.data?.projectId ?? params.get('projectId');
   const submit = form.handleSubmit(async (body) => {
     try {
@@ -282,6 +293,9 @@ export function TaskEditorPage() {
         {projects.isError && (
           <ErrorState error={projects.error} retry={() => void projects.refetch()} />
         )}{' '}
+        {selectedProject.isError && (
+          <ErrorState error={selectedProject.error} retry={() => void selectedProject.refetch()} />
+        )}
         {projects.hasNextPage && (
           <Button
             type="button"

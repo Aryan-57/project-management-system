@@ -4,17 +4,17 @@ Implemented product source: shared contracts/tokens; PostgreSQL Prisma schema an
 
 ## Build evidence
 
-| Command / artifact | Observed result |
-|---|---|
-| `pnpm install` | Successful; pnpm-lock.yaml generated and retained |
-| `pnpm peers check` | No peer dependency issues after SDK-aligned overrides |
-| `pnpm build` | Pass: contracts/design-tokens declarations, API `dist`, Vite web `dist` |
-| `pnpm typecheck` | Pass: both shared packages plus API, web, mobile |
-| `expo install --check` in mobile | Dependencies up to date for Expo SDK 56 |
-| `expo export --platform android` | Pass: Hermes bundle/assets in `apps/mobile/dist`; compilation uses placeholder HTTPS API URL |
-| Prisma generate | Pass: Prisma 7.10.0 generated client |
-| Prisma migrate diff | Initial versioned SQL generated from actual schema; DB-domain CHECK constraints added |
-| Figma | Editable annotated screen/state wireframes; Inter assertion and structural readback; screenshots reviewed |
+| Command / artifact               | Observed result                                                                                           |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `pnpm install`                   | Successful; pnpm-lock.yaml generated and retained                                                         |
+| `pnpm peers check`               | No peer dependency issues after SDK-aligned overrides                                                     |
+| `pnpm build`                     | Pass: contracts/design-tokens declarations, API `dist`, Vite web `dist`                                   |
+| `pnpm typecheck`                 | Pass: both shared packages plus API, web, mobile                                                          |
+| `expo install --check` in mobile | Dependencies up to date for Expo SDK 56                                                                   |
+| `expo export --platform android` | Pass: Hermes bundle/assets in `apps/mobile/dist`; compilation uses placeholder HTTPS API URL              |
+| Prisma generate                  | Pass: Prisma 7.10.0 generated client                                                                      |
+| Prisma migrate diff              | Initial versioned SQL generated from actual schema; DB-domain CHECK constraints added                     |
+| Figma                            | Editable annotated screen/state wireframes; Inter assertion and structural readback; screenshots reviewed |
 
 These are **compilation/configuration checks, not tests or proof of working runtime flows**. No automated test files, suites, test commands, browser/device testing phase or security scan was created/run. Database migration/seed and full API startup have not been executed against a live PostgreSQL instance in this phase. Docker was detected but its app/database setup remains a documented developer step. No Docker image build or hosted CI run is claimed.
 

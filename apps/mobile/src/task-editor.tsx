@@ -58,6 +58,12 @@ export function TaskEditor() {
       dueDate: new Date().toISOString().slice(0, 10),
     },
   });
+  const selectedId = form.watch('projectId');
+  const selectedProject = useQuery({
+    queryKey: ['project', selectedId],
+    queryFn: ({ signal }) => api<Project>('/projects/' + selectedId, { signal }),
+    enabled: !!selectedId,
+  });
   useEffect(() => {
     if (query.data && !form.formState.isDirty) {
       const { name, description, projectId, priority, status, dueDate } = query.data;
@@ -77,11 +83,16 @@ export function TaskEditor() {
       </Screen>
     );
   const items = projects.data?.pages.flatMap((p) => p.items) ?? [];
-  const selected = query.data;
+  const selected = selectedId
+    ? {
+        id: selectedId,
+        name:
+          selectedProject.data?.name ??
+          (query.data?.projectId === selectedId ? query.data.projectName : 'Selected project'),
+      }
+    : undefined;
   const options =
-    selected && !items.some((p) => p.id === selected.projectId)
-      ? [{ id: selected.projectId, name: selected.projectName }, ...items]
-      : items;
+    selected && !items.some((p) => p.id === selected.id) ? [selected, ...items] : items;
   const submit = form.handleSubmit(async (body) => {
     try {
       const task = await api<Task>(id ? '/tasks/' + id : '/tasks', {
@@ -127,6 +138,9 @@ export function TaskEditor() {
         <Text style={styles.muted}>
           No matching projects. Create a project on web, or change your search.
         </Text>
+      ) : null}
+      {selectedProject.isError ? (
+        <ErrorState error={selectedProject.error} retry={() => void selectedProject.refetch()} />
       ) : null}
       {projects.hasNextPage ? (
         <Button
